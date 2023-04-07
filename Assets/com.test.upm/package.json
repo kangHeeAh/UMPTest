@@ -7,7 +7,7 @@
         {
             "displayName": "TestScene",
             "description": "test scene",
-            "path": "Samples/01_Basic"
+            "path": "Samples~/01_Basic"
         }
     ]
 }
