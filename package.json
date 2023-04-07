@@ -1,0 +1,13 @@
+{
+    "name": "com.test.upm",
+    "version": "0.0.1",
+    "displayName": "UPMTest",
+    "description": "This is an example package",
+    "samples": [
+        {
+            "displayName": "TestScene",
+            "description": "test scene",
+            "path": "Samples/01_Basic"
+        }
+    ]
+}
