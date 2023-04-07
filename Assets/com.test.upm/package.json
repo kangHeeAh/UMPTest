@@ -1,6 +1,6 @@
 {
     "name": "com.test.upm",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "displayName": "UPMTest",
     "description": "This is an example package",
     "samples": [
