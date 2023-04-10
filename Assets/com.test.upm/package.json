@@ -8,6 +8,11 @@
             "displayName": "01_Basic",
             "description": "Test Basic code",
             "path": "Samples~/01_Basic"
+        },
+        {
+            "displayName": "02_NativePlugin",
+            "description": "Test Using Native Plugin",
+            "path": "Samples~/02_NativePlugin"
         }
     ]
 }
