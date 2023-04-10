@@ -20,7 +20,7 @@ jobs :
          run: echo ::set-output name=name::${GITHUB_REF#refs/tags/v}
          
        - name: Create UPM Branch
-         uses: hecomi/create-upm-branch-action@main
+         uses: kangHeeAh/create-upm-branch-action@main
          with:
           git-tag: ${{ steps.tag.outputs.name }}
           pkg-root-dir-path: Assets/com.test.upm
