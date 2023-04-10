@@ -5,8 +5,8 @@
     "description": "This is an example package",
     "samples": [
         {
-            "displayName": "TestScene",
-            "description": "test scene",
+            "displayName": "01_Basic",
+            "description": "Test Basic code",
             "path": "Samples~/01_Basic"
         }
     ]
