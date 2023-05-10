@@ -1,35 +1,41 @@
-name : Update-UPM-Branch
+name: Update-UPM-Branch
 
-# v1.2.3 같은 태그가 푸시되면 시작 
-on : 
-  workflow_dispatch:
-  push : 
-    tags : 
+on:
+  push:
+    tags:
       - v*
-jobs :
-  update :
-    runs-on : ubuntu-latest
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to update the UPM branch'
+        required: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
     steps:
-      # 최신 가져오기
-       - name : Checkout
-         uses: actions/checkout@v2
-         with:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
           fetch-depth: 0
-       # 이벤트를 시작한 태그를 steps.tag.outputs.name에 저장 
-       - name: Tag name
-         id: tag
-         run: |
-          if [ -z "${{ GITHUB_REF#refs/tags/ }}" ]; then
-            echo "The tag does not exist"
-            echo "::set-output name=tag_name::$(git describe --tags --abbrev=0)"
-          else
-            echo "The tag exists"
-            echo "::set-output name=tag_name::${GITHUB_REF#refs/tags/v}"
+
+      - name: Tag name
+        id: tag
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        run: echo "::set-output name=name::${{ github.event.inputs.tag }}"
+
+      - name: Check if tag exists
+        id: check_tag
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        run: |
+          if ! git rev-parse -q --verify "refs/tags/${{ steps.tag.outputs.name }}" >/dev/null; then
+            echo "Tag '${{ steps.tag.outputs.name }}' does not exist."
+            exit 1
           fi
-         
-       - name: Create UPM Branch
-         uses: kangHeeAh/create-upm-branch-action@main
-         with:
-          git-tag: ${{ steps.tag_name.outputs.tag_name }}
+
+      - name: Create UPM Branch
+        uses: kangHeeAh/create-upm-branch-action@main
+        with:
+          git-tag: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/tags/') && github.ref.replace('refs/tags/', '') || steps.tag.outputs.name }}
           pkg-root-dir-path: Assets/com.test.upm
-          main-branch: main
+          main-branch: master
