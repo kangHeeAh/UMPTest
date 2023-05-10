@@ -3,6 +3,9 @@
     "version": "0.0.7",
     "displayName": "UPMTest",
     "description": "This is an example package",
+    "dependencies": {
+        "com.vrmc.vrmshaders": "0.107.2"
+    },
     "samples": [
         {
             "displayName": "01_Basic",
