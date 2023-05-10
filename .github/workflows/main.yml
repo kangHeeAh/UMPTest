@@ -2,6 +2,12 @@ name : Update-UPM-Branch
 
 # v1.2.3 같은 태그가 푸시되면 시작 
 on : 
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to trigger the workflow'
+        required: true
+        default: 'main'    
   push : 
     tags : 
       - v*
