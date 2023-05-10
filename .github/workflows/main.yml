@@ -28,8 +28,17 @@ jobs :
        # 이벤트를 시작한 태그를 steps.tag.outputs.name에 저장 
        - name: Tag name
          if: github.event_name == 'push'
-         id: tag
+         id: push_tag
          run: echo ::set-output name=name::${GITHUB_REF#refs/tags/v}
+       
+       - name: Input tag name
+         id: tag
+         run: |
+          if [ -z "${{ steps.input_tag.outputs.name }}" ]; then
+            echo "::set-output name=name::${{ steps.push_tag.outputs.name }}"
+          else
+            echo "::set-output name=name::${{ steps.input_tag.outputs.name }}"
+          fi
          
        - name: Create UPM Branch
          uses: kangHeeAh/create-upm-branch-action@main
