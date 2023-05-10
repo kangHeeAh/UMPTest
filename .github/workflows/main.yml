@@ -20,6 +20,7 @@ jobs :
          uses: actions/checkout@v2
          with:
           fetch-depth: 0
+          ref: ${{ github.ref }}
        # 이벤트를 시작한 태그를 steps.tag.outputs.name에 저장 
        - name: Tag name
          id: tag
@@ -28,6 +29,6 @@ jobs :
        - name: Create UPM Branch
          uses: kangHeeAh/create-upm-branch-action@main
          with:
-          git-tag: ${{ steps.tag.outputs.name }}
+          git-tag: ${{ github.ref }}
           pkg-root-dir-path: Assets/com.test.upm
-          main-branch: master
+          main-branch: main
