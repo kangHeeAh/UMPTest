@@ -36,7 +36,7 @@ jobs:
           if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
             echo "::set-output name=name::${{ steps.input_tag.outputs.tag_name }}"
           else
-            echo "::set-output name=name::${{ GITHUB_REF#refs/tags/ }}"
+            echo "::set-output name=name::${{ GITHUB_REF#refs/tags/v }}"
           fi
       - name: Create UPM Branch
         uses: kangHeeAh/create-upm-branch-action@main
