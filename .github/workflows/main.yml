@@ -1,46 +1,27 @@
-name: Update-UPM-Branch
+name : Update-UPM-Branch
 
-on:
-  push:
-    tags:
+# v1.2.3 같은 태그가 푸시되면 시작 
+on : 
+  push : 
+    tags : 
       - v*
-  workflow_dispatch:
-    inputs:
-      tag:
-        description: 'Tag to trigger the workflow'
-        required: false
-
-jobs:
-  update:
-    runs-on: ubuntu-latest
+jobs :
+  update :
+    runs-on : ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
+      # 최신 가져오기
+       - name : Checkout
+         uses: actions/checkout@v2
+         with:
           fetch-depth: 0
-      # workflow_dispatch 이벤트를 통해 tag 입력받기
-      - name: Get tag name
-        if: github.event_name == 'workflow_dispatch'
-        id: input_tag
-        run: echo "::set-output name=tag_name::${{ github.event.inputs.tag }}"
-      # 이벤트를 시작한 태그를 steps.tag.outputs.name에 저장 
-      - name: Tag name
-        if: github.event_name == 'push'
-        id: tag
-        run: echo "::set-output name=tag_name::${{ github.ref_name }}"
-      # workflow_dispatch 이벤트에서 입력받은 tag가 존재할 경우에는 해당 tag로 작업을 진행하고,
-      # push 이벤트에서 tag를 가져온 경우에는 GITHUB_REF#refs/tags/ 를 이용하여 tag 이름을 추출합니다.
-      - name: Set tag name
-        id: set_tag_name
-        run: |
-          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
-            echo "::set-output name=name::${{ steps.input_tag.outputs.tag_name }}"
-          else
-            echo "::set-output name=name::${{ github.ref_name#refs/tags/ }}"
-          fi
-      - name: Create UPM Branch
-        uses: kangHeeAh/create-upm-branch-action@main
-        with:
-          git-tag: ${{ steps.set_tag_name.outputs.name }}
+       # 이벤트를 시작한 태그를 steps.tag.outputs.name에 저장 
+       - name: Tag name
+         id: tag
+         run: echo ::set-output name=name::${GITHUB_REF#refs/tags/v}
+         
+       - name: Create UPM Branch
+         uses: kangHeeAh/create-upm-branch-action@main
+         with:
+          git-tag: ${{ steps.tag.outputs.name }}
           pkg-root-dir-path: Assets/com.test.upm
           main-branch: master
