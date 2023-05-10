@@ -19,7 +19,7 @@ jobs :
        - name: Tag name
          id: tag
          run: |
-          if [ -z "${{ GITHUB_REF#refs/tags/v }}" ]; then
+          if [ -z "${{ GITHUB_REF#refs/tags/ }}" ]; then
             echo "The tag does not exist"
             echo "::set-output name=tag_name::$(git describe --tags --abbrev=0)"
           else
