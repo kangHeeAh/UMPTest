@@ -37,7 +37,7 @@ jobs :
           if [ -z "${{ steps.input_tag.outputs.name }}" ]; then
             echo "::set-output name=name::${{ steps.push_tag.outputs.name }}"
           else
-            echo "::set-output name=name::${{ steps.input_tag.outputs.name }}"
+            echo "::set-output name=name::${{ steps.input_tag.outputs.name #v }}"
           fi
          
        - name: Create UPM Branch
