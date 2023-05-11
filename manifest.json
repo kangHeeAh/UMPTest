@@ -1,5 +1,0 @@
-{
-    "dependencies": {
-        "com.vrmc.vrmshaders": "https://github.com/vrm-c/UniVRM.git?path=/Assets/VRMShaders#v0.107.2"
-    }
-}

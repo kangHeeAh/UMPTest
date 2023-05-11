@@ -3,6 +3,15 @@
     "version": "0.0.7",
     "displayName": "UPMTest",
     "description": "This is an example package",
+    "scopedRegistries": [
+        {
+            "name": "package.openupm.com",
+            "url": "https://package.openupm.com",
+            "scopes": [
+                "com.vrmc.vrmshaders"
+            ]
+        }
+    ],
     "dependencies": {
         "com.vrmc.vrmshaders": "0.107.2"
     },
